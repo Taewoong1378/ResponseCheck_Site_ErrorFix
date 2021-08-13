@@ -1,4 +1,4 @@
-import { fork, put, takeLatest, call, all } from 'redux-saga/effects';
+import { fork, put, takeLatest/* , call, */, all, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
@@ -14,10 +14,11 @@ function nicknameAPI(data) {
 
 function* nicknameIn(action) {
     try {
-      const result = yield call(nicknameAPI, action.data);
+      // const result = yield call(nicknameAPI, action.data);
+      yield delay(1000);
       yield put({
         type: NICKNAME_SUCCESS,
-        data: result.data,
+        // data: result.data,
       });
     } catch (err) {
       console.error(err);

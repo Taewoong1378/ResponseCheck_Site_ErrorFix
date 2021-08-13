@@ -4,7 +4,7 @@ import Head from 'next/head';
 import 'antd/dist/antd.css';
 import Helmet from 'react-helmet';
 
-// import wrapper from '../store/configureStore';
+import wrapper from '../store/configureStore';
 
 const App = ({ Component }) => (
     <>
@@ -25,4 +25,4 @@ App.propTypes = {
     Component: PropTypes.elementType.isRequired,
 }
 
-export default App;
+export default wrapper.withRedux(App);

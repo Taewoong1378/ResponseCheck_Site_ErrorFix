@@ -8,6 +8,37 @@ export const GlobalFont = createGlobalStyle`
   }
 `;
 
+export const Header = styled.div`
+    width: 100%;
+    height: 50px;
+    background: black;
+    color: gold;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+`;
+
+export const Style = styled.span`
+    position: absolute;
+    right: 5%;
+`;
+
+export const Wrapper = styled(FontAwesomeIcon)`
+    margin-left: 5%;
+    font-size: 20px;
+`;
+
+
+export const Center = styled.span`
+    margin-left: 10px;
+    font-size: 20px;
+`;
+
+export const A = styled.a`
+    color: gold;
+`;
+
 export const Footer = styled.div`
     width: 100%;
     height: 50px;

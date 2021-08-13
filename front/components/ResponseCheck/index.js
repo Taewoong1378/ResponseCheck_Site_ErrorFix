@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { Wrapper, Ul, Li, Div, ButtonWrapper } from './styles';
-import UnderButton from './UnderButton';
+import { Wrapper, Ul, Li, Div, ButtonWrapper, MainButton } from './styles';
+import UnderButton from '../UnderButton/index';
 import Link from 'next/link';
 
 const ResponseCheck = () => {
@@ -19,7 +19,7 @@ const ResponseCheck = () => {
         setState('now');
         setMessage('지금 클릭!');
         startTime.current = new Date();
-      }, 0.1);  // process.NODE.ENV === 'production' ? Math.floor(Math.random() * 1000) + 2000 : 0.1
+      }, Math.floor(Math.random() * 1000) + 2000);  // process.NODE.ENV === 'production' ? Math.floor(Math.random() * 1000) + 2000 : 0.1
       setState('ready');
       setMessage('초록색이 되면 클릭하세요!');
     } else if (state === 'ready') { // 성급하게 클릭
@@ -58,7 +58,10 @@ const ResponseCheck = () => {
 
   const renderAverage = useCallback(() => {
     return result.length === 0
-      ? null
+      ? 
+      <Link href="/record">
+        <a><MainButton type="primary">다른 사람 점수 보러가기</MainButton></a>
+      </Link>
       : result.length === 5
       ? 
       <>
@@ -84,7 +87,7 @@ const ResponseCheck = () => {
             <a><ButtonWrapper type="primary">다른 사람 점수 보러가기</ButtonWrapper></a>
             </Link>
         </Div>
-          <UnderButton score={score} />
+          <UnderButton onReset={onReset} score={score} />
       </>
       :
        <>

@@ -1,31 +1,35 @@
-import React, { /* useEffect, */ useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { nicknameRequestAction } from '../reducers/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { nicknameRequestAction } from '../../reducers/user';
 import { Input, Button } from 'antd';
 import { FormWrapper } from './styles';
 
-const UnderButton = (/* { score } */) => {
-    // const dispatch = useDispatch();
-    // const { nicknameLoading, nicknameError } = useSelector((state) => state.user);
+const UnderButton = ({ onReset, score }) => {
+    const dispatch = useDispatch();
+    const { nicknameLoading, nicknameError } = useSelector((state) => state.user);
     const [nickname, setNickname] = useState('');
 
-    // useEffect(() => {
-    //     if (nicknameError) {
-    //         alert(nicknameError);
-    //     }
-    // }, [nicknameError]);
-  
     const onSubmitForm = useCallback(() => {
-        // dispatch(nicknameRequestAction({ nickname, score });
-        console.log(nickname);
-        setNickname(true);
-    }, [nickname]);
+        dispatch(nicknameRequestAction({ nickname, score }));
+        alert('점수 제출이 완료됐습니다!');
+        alert('잠시후 게임이 다시 시작됩니다!');
+        setNickname('');
+        setTimeout(() => {
+            onReset();
+        }, 2000);
+    }, [nickname, score]);
     
     const onChangeNickname = useCallback((e) => {
         setNickname(e.target.value);
     }, []);
 
+    useEffect(() => {
+        if (nicknameError) {
+            alert(nicknameError);
+        }
+    }, [nicknameError]);
+  
     return (
         <div>
             <FormWrapper onFinish={onSubmitForm}>
@@ -46,7 +50,7 @@ const UnderButton = (/* { score } */) => {
                 <Button 
                 type="primary" 
                 htmlType="submit" 
-                /* loading={nicknameLoading}  */
+                loading={nicknameLoading} 
                 style={{ marginLeft: '15px', lineHeight: '1.8em' }}
                 >
                 점수 제출
@@ -59,6 +63,7 @@ const UnderButton = (/* { score } */) => {
 
 UnderButton.propTypes = {
     score: PropTypes.number.isRequired,
+    onReset: PropTypes.func.isRequired,
 };
 
 export default UnderButton;

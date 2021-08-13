@@ -1,11 +1,5 @@
 import styled from 'styled-components';
-import { Button, Form } from 'antd';
-
-export const FormWrapper = styled(Form)`
-  font-family: 'Jua', sans-serif;
-  margin-top: 10px;
-  text-align: center;
-`;
+import { Button } from 'antd';
 
 export const Wrapper = styled.div`
   font-family: 'Jua', sans-serif;
@@ -54,6 +48,16 @@ export const ButtonWrapper = styled(Button)`
   margin: 4px 2px;
   margin-top: 110px;
   margin-bottom: 10px;
+`;
+
+export const MainButton = styled(Button)`
+  font-family: 'Jua', sans-serif;
+  font-size: 16px;
+  margin: 4px 2px;
+  margin-top: 80px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 export const Div = styled.div`

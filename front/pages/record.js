@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import AppLayout from '../components/AppLayout';
 import styled from 'styled-components';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import { Button, Divider, List } from 'antd'; 
 
@@ -11,10 +11,23 @@ const H1 = styled.h1`
 `;
 
 const Record = () => {
-    // const dispatch = useDispatch();
-    // const { nickname, score } = useSelector((state) => state.user);
+    const { me } = useSelector((state) => state.user);
 
     const style = useMemo(() => ({ fontFamily: `'Jua', sans-serif`, textAlign: 'center' }));
+
+    const data = [
+                `1등 : ${me.nickname[0]} - ${me.score[0]}ms`,
+                `2등 : ${me.nickname[1]} - ${me.score[1]}ms`,
+                `3등 : ${me.nickname[2]} - ${me.score[2]}ms`,
+                ];
+
+    // const exUser = me.nickname?.me.score;
+    // let data = [];
+    // if(exUser) {
+    //     for(let i=0; i<me.nickname.length; i++){
+    //         data.push(`${i+1}등 : ${me.nickname[i]} - ${me.score[i]}`);
+    //     }
+    // }
 
     // const data = nickname.length >=10 ? [
     //     `1등 : ${nickname[0]} - ${score[0]}`,
@@ -27,21 +40,9 @@ const Record = () => {
     //     `8등 : ${nickname[7]} - ${score[7]}`,
     //     `9등 : ${nickname[8]} - ${score[8]}`,
     //     `10등 : ${nickname[9]} - ${score[9]}`,
-    //   ] : null;
-    
-    const data = [
-        `1등 : 강태웅 - 100점`,
-        `2등 : 강태웅 - 100점`,
-        `3등 : 강태웅 - 100점`,
-        `4등 : 강태웅 - 100점`,
-        `5등 : 강태웅 - 100점`,
-        `6등 : 강태웅 - 100점`,
-        `7등 : 강태웅 - 100점`,
-        `8등 : 강태웅 - 100점`,
-        `9등 : 강태웅 - 100점`,
-        `10등 : 강태웅 - 100점`,
-      ];
+    //   ] : '';
 
+    
     return (
             <AppLayout>
                 <div style={style}>

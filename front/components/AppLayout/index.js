@@ -1,13 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { faHandPointUp } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons';
-import HeaderNav from '../HeaderNav';
-import { Footer, Github, Instagram, Facebook, Ul, Li } from './styles';
+import Link from 'next/link';
+import { Header, Wrapper, Center, Style, A, Footer, Github, Instagram, Facebook, Ul, Li } from './styles';
 
 const AppLayout = ({ children }) => (
         <div>
             <div>
-                <HeaderNav />
+                <Header>
+                    <Wrapper icon={faHandPointUp} />
+                    <Center>
+                        <Link href="/"><A>반응속도 테스트</A></Link>
+                        <Style> 
+                            By Taewoong 
+                        </Style>
+                    </Center>
+                </Header>
                 {children}
                 <Footer>
                     <Ul>
