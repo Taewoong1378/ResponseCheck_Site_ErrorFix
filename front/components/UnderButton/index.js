@@ -17,7 +17,7 @@ const UnderButton = ({ onReset, score }) => {
         setNickname('');
         setTimeout(() => {
             onReset();
-        }, 2000);
+        }, 5000);
     }, [nickname, score]);
     
     const onChangeNickname = useCallback((e) => {

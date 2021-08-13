@@ -14,12 +14,8 @@ const Record = () => {
     const { me } = useSelector((state) => state.user);
 
     const style = useMemo(() => ({ fontFamily: `'Jua', sans-serif`, textAlign: 'center' }));
-
-    const data = [
-                `1등 : ${me.nickname[0]} - ${me.score[0]}ms`,
-                `2등 : ${me.nickname[1]} - ${me.score[1]}ms`,
-                `3등 : ${me.nickname[2]} - ${me.score[2]}ms`,
-                ];
+    const data = [me[0].nickname];
+    // const data = [`1등 : ${me.nickname} - ${me.score}ms`];
 
     // const exUser = me.nickname?.me.score;
     // let data = [];

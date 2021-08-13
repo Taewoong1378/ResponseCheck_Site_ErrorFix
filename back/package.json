@@ -2,9 +2,9 @@
   "name": "back",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon server"
   },
   "author": "taewoong",
   "license": "ISC",
@@ -13,10 +13,13 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "hpp": "^0.2.3",
     "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.12",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "eslint": "^7.2.0",

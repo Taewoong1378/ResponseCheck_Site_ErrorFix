@@ -19,7 +19,7 @@ const ResponseCheck = () => {
         setState('now');
         setMessage('지금 클릭!');
         startTime.current = new Date();
-      }, Math.floor(Math.random() * 1000) + 2000);  // process.NODE.ENV === 'production' ? Math.floor(Math.random() * 1000) + 2000 : 0.1
+      }, 0.1);  // process.NODE.ENV === 'production' ? Math.floor(Math.random() * 1000) + 2000 : 0.1
       setState('ready');
       setMessage('초록색이 되면 클릭하세요!');
     } else if (state === 'ready') { // 성급하게 클릭
