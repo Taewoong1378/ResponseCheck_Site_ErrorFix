@@ -2,6 +2,8 @@ import React, { useState, useRef, useCallback } from 'react';
 import { Wrapper, Ul, Li, Div, ButtonWrapper, MainButton } from './styles';
 import UnderButton from '../UnderButton/index';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { resetRequestAction } from '../../reducers/user';
 
 const ResponseCheck = () => {
   const [state, setState] = useState('waiting');
@@ -12,6 +14,8 @@ const ResponseCheck = () => {
   const timeout = useRef(null);
   const startTime = useRef();
   const endTime = useRef();
+
+  const dispatch = useDispatch();
 
   const onClickScreen = useCallback((e) => {
     if (state === 'waiting') {
@@ -52,6 +56,7 @@ const ResponseCheck = () => {
     setState('waiting');
     // eslint-disable-next-line react/jsx-key
     setMessage(['기회는 5번! 다음 화면에서 배경이 초록색이 되는 순간 클릭하세요.', <br/>, <br/>, '시작하려면 클릭해주세요.']);
+    dispatch(resetRequestAction());
   }, []);
 
   const score = result.length !==0 ? Math.round(result.reduce((a, c) => a + c) / result.length) : null;
@@ -87,7 +92,7 @@ const ResponseCheck = () => {
             <a><ButtonWrapper type="primary">다른 사람 점수 보러가기</ButtonWrapper></a>
             </Link>
         </Div>
-          <UnderButton onReset={onReset} score={score} />
+          <UnderButton setMessage={setMessage} onReset={onReset} score={score} />
       </>
       :
        <>

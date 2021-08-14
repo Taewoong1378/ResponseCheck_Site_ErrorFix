@@ -9,6 +9,11 @@ router.post('/', async (req, res, next) => {    // POST /user
             nickname: req.body.nickname,
             score: req.body.score,
         });
+
+        const where = {};
+        if (parseInt(req.query.lastScore, 10)) { // 초기 로딩이 아닐 때
+            where.score = { [Op.lt]: parseInt(req.query.lastScore, 10)}
+        }
         const results = await User.findAll({
             where,
             attributes: ['nickname', 'score'],

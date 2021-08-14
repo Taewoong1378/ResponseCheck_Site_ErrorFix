@@ -13,7 +13,7 @@ const UnderButton = ({ onReset, score }) => {
     const onSubmitForm = useCallback(() => {
         dispatch(nicknameRequestAction({ nickname, score }));
         alert('점수 제출이 완료됐습니다!');
-        alert('잠시후 게임이 다시 시작됩니다!');
+        alert('잠시 후 게임이 다시 시작됩니다!');
         setNickname('');
         setTimeout(() => {
             onReset();

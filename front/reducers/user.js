@@ -9,6 +9,10 @@ export const NICKNAME_REQUEST = 'NICKNAME_REQUEST';
 export const NICKNAME_SUCCESS = 'NICKNAME_SUCCESS';
 export const NICKNAME_FAILURE = 'NICKNAME_FAILURE';
 
+export const RESET_REQUEST = 'RESET_REQUEST';
+export const RESET_SUCCESS = 'RESET_SUCCESS';
+export const RESET_FAILURE = 'RESET_FAILURE';
+
 // const dummyUser = (data) => ({
 //     ...data,
 //     nickname: ['ktw2378', 'xodnd2378', '강태웅'],
@@ -17,6 +21,11 @@ export const NICKNAME_FAILURE = 'NICKNAME_FAILURE';
   
 export const nicknameRequestAction = (data) => ({
     type: NICKNAME_REQUEST,
+    data,
+});
+
+export const resetRequestAction = (data) => ({
+    type: RESET_REQUEST,
     data,
 });
 
@@ -41,6 +50,25 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 nicknameLoading: false,
+                nicknameError: action.error,
+            };
+        case RESET_REQUEST:
+            return {
+                ...state,
+                nicknameLoading: true,
+                nicknameError: null,
+            };
+        case RESET_SUCCESS:
+            return {
+                ...state,
+                nicknameLoading: false,
+                nicknameDone: false,
+                nicknameError: null,
+            };
+        case RESET_FAILURE:
+            return {
+                ...state,
+                nicknameLoading: true,
                 nicknameError: action.error,
             };
         default:
