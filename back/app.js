@@ -8,6 +8,7 @@ const { sequelize } = require('./models');
 
 dotenv.config();
 const userRouter = require('./routes/user');
+const usersRouter = require('./routes/users');
 const logger = require('./logger');
 
 const app = express();
@@ -39,6 +40,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/user', userRouter);
+app.use('/users', usersRouter);
 
 
 // 404처리 미들웨어

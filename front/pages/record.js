@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import AppLayout from '../components/AppLayout';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import { Button, Divider, List } from 'antd'; 
+import { LOAD_NICKNAMES_REQUEST } from '../reducers/user';
 
 const H1 = styled.h1`
     text-align: center;
@@ -11,10 +12,34 @@ const H1 = styled.h1`
 `;
 
 const Record = () => {
-    const { me } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+    const { mainUsers } = useSelector((state) => state.user);
+
+    useEffect(() => {
+        dispatch({
+            type: LOAD_NICKNAMES_REQUEST,
+        });
+    }, []);
+
+    let nickname_output = [];
+    let score_output = [];
+    for (let i = 0; i < Object.keys(mainUsers).length; i++ ) {
+        nickname_output.push((mainUsers)[Object.keys(mainUsers)[i]].nickname);
+        score_output.push((mainUsers)[Object.keys(mainUsers)[i]].score);
+    }
+
+    console.log(nickname_output);
+    console.log(score_output);
+
+    const data = [];
+    for (let i = 0; i < nickname_output.length; i++) {
+        data.push(`${i+1}등 : ${nickname_output[i]} - ${score_output[i]}ms`); 
+    }
+    console.log(data);
 
     const style = useMemo(() => ({ fontFamily: `'Jua', sans-serif`, textAlign: 'center' }));
-    const data = [me[0].nickname];
+
+
     // const data = [`1등 : ${me.nickname} - ${me.score}ms`];
 
     // const exUser = me.nickname?.me.score;

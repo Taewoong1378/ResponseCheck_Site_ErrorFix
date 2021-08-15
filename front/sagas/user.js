@@ -2,33 +2,56 @@ import { fork, put, takeLatest, call, all, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
-    NICKNAME_REQUEST,
-    NICKNAME_SUCCESS,
-    NICKNAME_FAILURE,
+    ADD_NICKNAME_REQUEST,
+    ADD_NICKNAME_SUCCESS,
+    ADD_NICKNAME_FAILURE,
+    LOAD_NICKNAMES_REQUEST,
+    LOAD_NICKNAMES_SUCCESS,
+    LOAD_NICKNAMES_FAILURE,
     RESET_REQUEST,
     RESET_SUCCESS,
     RESET_FAILURE,
 } from '../reducers/user';
 
-function nicknameAPI(data) {
+function addNicknameAPI(data) {
     return axios.post('/user', data);
 }
 // data: nickname & score
 
-function* nicknameIn(action) {
+function* addNickname(action) {
     try {
-      const result = yield call(nicknameAPI, action.data);
+      const result = yield call(addNicknameAPI, action.data);
       yield put({
-        type: NICKNAME_SUCCESS,
+        type: ADD_NICKNAME_SUCCESS,
         data: result.data,
       });
     } catch (err) {
       console.error(err);
       yield put({
-        type: NICKNAME_FAILURE,
+        type: ADD_NICKNAME_FAILURE,
         error: err.response.data,
       });
     }
+}
+
+function loadNicknamesAPI(data) {
+  return axios.get('/users', data);
+}
+
+function* loadNicknames(action) {
+  try {
+    const result = yield call(loadNicknamesAPI, action.data);
+    yield put({
+      type: LOAD_NICKNAMES_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_NICKNAMES_FAILURE,
+      error: err.response.data,
+    });
+  }
 }
 
 function* reset(action) {
@@ -36,6 +59,7 @@ function* reset(action) {
       yield delay(0);
       yield put({
         type: RESET_SUCCESS,
+        data: action.data,
       });
     } catch (err) {
       console.error(err);
@@ -46,8 +70,11 @@ function* reset(action) {
     }
 }
 
-function* watchNicknameIn() {
-    yield takeLatest(NICKNAME_REQUEST, nicknameIn);
+function* watchAddNickname() {
+    yield takeLatest(ADD_NICKNAME_REQUEST, addNickname);
+}
+function* watchLoadNicknames() {
+    yield takeLatest(LOAD_NICKNAMES_REQUEST, loadNicknames);
 }
 function* watchReset() {
     yield takeLatest(RESET_REQUEST, reset);
@@ -55,7 +82,8 @@ function* watchReset() {
 
 export default function* userSaga() {
     yield all([
-      fork(watchNicknameIn),
+      fork(watchAddNickname),
+      fork(watchLoadNicknames),
       fork(watchReset),
     ]);
 }

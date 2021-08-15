@@ -1,17 +1,24 @@
 export const initialState = {
-    nicknameLoading: false,
-    nicknameDone: false,
-    nicknameError: null,
-    me: null,
+    addNicknameLoading: false,
+    addNicknameDone: false,
+    addNicknameError: null,
+    loadNicknamesLoading: false,
+    loadNickanmesDone: false,
+    loadNickanmesError: null,
+    mainUsers: [],
 };
 
-export const NICKNAME_REQUEST = 'NICKNAME_REQUEST';
-export const NICKNAME_SUCCESS = 'NICKNAME_SUCCESS';
-export const NICKNAME_FAILURE = 'NICKNAME_FAILURE';
+export const ADD_NICKNAME_REQUEST = 'ADD_NICKNAME_REQUEST';
+export const ADD_NICKNAME_SUCCESS = 'ADD_NICKNAME_SUCCESS';
+export const ADD_NICKNAME_FAILURE = 'ADD_NICKNAME_FAILURE';
 
 export const RESET_REQUEST = 'RESET_REQUEST';
 export const RESET_SUCCESS = 'RESET_SUCCESS';
 export const RESET_FAILURE = 'RESET_FAILURE';
+
+export const LOAD_NICKNAMES_REQUEST = 'LOAD_NICKNAMES_REQUEST';
+export const LOAD_NICKNAMES_SUCCESS = 'LOAD_NICKNAMES_SUCCESS';
+export const LOAD_NICKNAMES_FAILURE = 'LOAD_NICKNAMES_FAILURE';
 
 // const dummyUser = (data) => ({
 //     ...data,
@@ -19,8 +26,8 @@ export const RESET_FAILURE = 'RESET_FAILURE';
 //     score: [212, 343, 387],
 // });
   
-export const nicknameRequestAction = (data) => ({
-    type: NICKNAME_REQUEST,
+export const addNicknameRequestAction = (data) => ({
+    type: ADD_NICKNAME_REQUEST,
     data,
 });
 
@@ -31,45 +38,66 @@ export const resetRequestAction = (data) => ({
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case NICKNAME_REQUEST:
+        case ADD_NICKNAME_REQUEST:
             return {
                 ...state,
-                nicknameLoading: true,
-                nicknameDone: false,
-                nicknameError: null,
+                addnicknameLoading: true,
+                addnicknameDone: false,
+                addnicknameError: null,
             };
-        case NICKNAME_SUCCESS:
+        case ADD_NICKNAME_SUCCESS:
             return {
                 ...state,
-                nicknameLoading: false,
-                me: action.data, /* dummyUser(action.data), */
-                nicknameDone: true,
-                nicknameError: null,
+                addnicknameLoading: false,
+                mainUsers: state.mainUsers.unshift(action.data),
+                addnicknameDone: true,
+                addnicknameError: null,
             };
-        case NICKNAME_FAILURE:
+        case ADD_NICKNAME_FAILURE:
             return {
                 ...state,
-                nicknameLoading: false,
-                nicknameError: action.error,
+                addnicknameLoading: false,
+                addnicknameError: action.error,
+            };
+        case LOAD_NICKNAMES_REQUEST:
+            return {
+                ...state,
+                loadNicknamesLoading: true,
+                loadNicknamesDone: false,
+                loadNicknamesError: null,
+            };
+        case LOAD_NICKNAMES_SUCCESS:
+            return {
+                ...state,
+                loadNicknamesLoading: false,
+                mainUsers: action.data.concat(state.mainUsers),
+                loadNicknamesDone: true,
+                loadNicknamesError: null,
+            };
+        case LOAD_NICKNAMES_FAILURE:
+            return {
+                ...state,
+                loadNicknamesLoading: false,
+                loadNicknamesError: action.error,
             };
         case RESET_REQUEST:
             return {
                 ...state,
-                nicknameLoading: true,
-                nicknameError: null,
+                addnicknameLoading: true,
+                addnicknameError: null,
             };
         case RESET_SUCCESS:
             return {
                 ...state,
-                nicknameLoading: false,
-                nicknameDone: false,
-                nicknameError: null,
+                addnicknameLoading: false,
+                addnicknameDone: false,
+                addnicknameError: null,
             };
         case RESET_FAILURE:
             return {
                 ...state,
-                nicknameLoading: true,
-                nicknameError: action.error,
+                addnicknameLoading: true,
+                addnicknameError: action.error,
             };
         default:
             return state;

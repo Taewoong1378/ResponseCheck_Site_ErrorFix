@@ -1,17 +1,17 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { nicknameRequestAction } from '../../reducers/user';
+import { addNicknameRequestAction } from '../../reducers/user';
 import { Input, Button } from 'antd';
 import { FormWrapper } from './styles';
 
 const UnderButton = ({ onReset, score }) => {
     const dispatch = useDispatch();
-    const { nicknameLoading, nicknameError } = useSelector((state) => state.user);
+    const { addnicknameLoading, addnicknameError } = useSelector((state) => state.user);
     const [nickname, setNickname] = useState('');
 
     const onSubmitForm = useCallback(() => {
-        dispatch(nicknameRequestAction({ nickname, score }));
+        dispatch(addNicknameRequestAction({ nickname, score }));
         alert('점수 제출이 완료됐습니다!');
         alert('잠시 후 게임이 다시 시작됩니다!');
         setNickname('');
@@ -25,10 +25,10 @@ const UnderButton = ({ onReset, score }) => {
     }, []);
 
     useEffect(() => {
-        if (nicknameError) {
-            alert(nicknameError);
+        if (addnicknameError) {
+            alert(addnicknameError);
         }
-    }, [nicknameError]);
+    }, [addnicknameError]);
   
     return (
         <div>
@@ -50,7 +50,7 @@ const UnderButton = ({ onReset, score }) => {
                 <Button 
                 type="primary" 
                 htmlType="submit" 
-                loading={nicknameLoading} 
+                loading={addnicknameLoading} 
                 style={{ marginLeft: '15px', lineHeight: '1.8em' }}
                 >
                 점수 제출
