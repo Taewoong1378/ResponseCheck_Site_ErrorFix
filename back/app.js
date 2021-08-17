@@ -6,18 +6,19 @@ const helmet = require('helmet');
 const hpp = require('hpp');
 const { sequelize } = require('./models');
 
-dotenv.config();
 const userRouter = require('./routes/user');
 const usersRouter = require('./routes/users');
+const db = require('./models');
 const logger = require('./logger');
 
+dotenv.config();
 const app = express();
 // 개발할 때 포트와 배포할 때 포트를 다르게 한다
 // 나중에는 .env에 PORT=80을 넣어줄 것.
 app.set('port', process.env.PORT || 3065);
 
 // 시퀄라이즈 설정
-sequelize.sync({ force: false })
+db.sequelize.sync()
   .then(() => {
     console.log('데이터베이스 연결 성공');
   })
@@ -68,4 +69,6 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-module.exports = app;
+app.listen(3065, () => {
+  console.log('서버 실행 중!');
+});
