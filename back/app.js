@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const morgan = require('morgan');
+const dotenv = require('dotenv');
 const helmet = require('helmet');
 const hpp = require('hpp');
 const { sequelize } = require('./models');
@@ -9,7 +9,7 @@ const { sequelize } = require('./models');
 dotenv.config();
 const userRouter = require('./routes/user');
 const usersRouter = require('./routes/users');
-// const logger = require('./logger');
+const logger = require('./logger');
 
 const app = express();
 // 개발할 때 포트와 배포할 때 포트를 다르게 한다
@@ -40,7 +40,6 @@ if (process.env.NODE_ENV === 'production') {
     credentials: true,
   }));
 }
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -51,23 +50,22 @@ app.get('/', (req, res) => {
 app.use('/user', userRouter);
 app.use('/users', usersRouter);
 
-// // 404처리 미들웨어
-// app.use((req, res, next) => {
-//   const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
-//   error.status = 404;
-//   logger.error(error.message);
-//   next(error);
-// });
-
-// // 에러 처리 미들웨어
-// app.use((err, req, res, next) => {
-//   res.locals.message = err.message;
-//   // 개발 모드일 때는 에러를 보여주게 하고, 배포일 때는 보여주지 않게 하는 코드
-//   res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
-
-app.listen(3065, () => {
-  console.log('서버 실행 중!');
+// 404처리 미들웨어
+app.use((req, res, next) => {
+  const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
+  error.status = 404;
+  logger.info('hello');
+  logger.error(error.message);
+  next(error);
 });
+
+// 에러 처리 미들웨어
+app.use((err, req, res, next) => {
+  res.locals.message = err.message;
+  // 개발 모드일 때는 에러를 보여주게 하고, 배포일 때는 보여주지 않게 하는 코드
+  res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
+  res.status(err.status || 500);
+  res.render('error');
+});
+
+module.exports = app;
