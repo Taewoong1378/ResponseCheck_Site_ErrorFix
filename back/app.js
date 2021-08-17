@@ -1,19 +1,7 @@
-(function() {
-  var childProcess = require("child_process");
-  var oldSpawn = childProcess.spawn;
-  function mySpawn() {
-      console.log('spawn called');
-      console.log(arguments);
-      var result = oldSpawn.apply(this, arguments);
-      return result;
-  }
-  childProcess.spawn = mySpawn;
-})();
-
 const express = require('express');
 const cors = require('cors');
-const morgan = require('morgan');
 const dotenv = require('dotenv');
+const morgan = require('morgan');
 const helmet = require('helmet');
 const hpp = require('hpp');
 const { sequelize } = require('./models');
@@ -21,7 +9,7 @@ const { sequelize } = require('./models');
 dotenv.config();
 const userRouter = require('./routes/user');
 const usersRouter = require('./routes/users');
-const logger = require('./logger');
+// const logger = require('./logger');
 
 const app = express();
 // 개발할 때 포트와 배포할 때 포트를 다르게 한다
@@ -37,17 +25,22 @@ sequelize.sync({ force: false })
     console.error(err);
   });
 
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(morgan('combined'));
-  app.use(helmet({ contentSecurityPolicy: false }));
   app.use(hpp());
+  app.use(helmet({ contentSecurityPolicy: false }));
+  app.use(cors({
+    origin: 'http://nodebird.com',
+    credentials: true,
+  }));
 } else {
   app.use(morgan('dev'));
-}
-app.use(cors({
+  app.use(cors({
     origin: true,
     credentials: true,
   }));
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -58,23 +51,23 @@ app.get('/', (req, res) => {
 app.use('/user', userRouter);
 app.use('/users', usersRouter);
 
-// 404처리 미들웨어
-app.use((req, res, next) => {
-  const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
-  error.status = 404;
-  logger.error(error.message);
-  next(error);
-});
+// // 404처리 미들웨어
+// app.use((req, res, next) => {
+//   const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
+//   error.status = 404;
+//   logger.error(error.message);
+//   next(error);
+// });
 
-// 에러 처리 미들웨어
-app.use((err, req, res, next) => {
-  res.locals.message = err.message;
-  // 개발 모드일 때는 에러를 보여주게 하고, 배포일 때는 보여주지 않게 하는 코드
-  res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
-  res.status(err.status || 500);
-  res.render('error');
-});
+// // 에러 처리 미들웨어
+// app.use((err, req, res, next) => {
+//   res.locals.message = err.message;
+//   // 개발 모드일 때는 에러를 보여주게 하고, 배포일 때는 보여주지 않게 하는 코드
+//   res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
+//   res.status(err.status || 500);
+//   res.render('error');
+// });
 
-app.listen(app.get('port'), () => {
-  console.log(app.get('port'), '번 포트에서 대기중');
+app.listen(3065, () => {
+  console.log('서버 실행 중!');
 });

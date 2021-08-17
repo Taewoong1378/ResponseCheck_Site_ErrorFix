@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import userSaga from './user';
 
-axios.defaults.baseURL = 'http://localhost:3065';
+axios.defaults.baseURL = 'http://13.125.197.58/';
 axios.defaults.withCredentials = true;
 
 export default function* rootSaga() {
