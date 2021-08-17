@@ -124,4 +124,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# pem
+response-check.pem
+
 # End of https://www.toptal.com/developers/gitignore/api/node

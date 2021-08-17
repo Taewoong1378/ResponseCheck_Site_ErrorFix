@@ -1,4 +1,4 @@
-import { fork, put, takeLatest, call, all, delay } from 'redux-saga/effects';
+import { fork, put, takeLatest, call, all } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
@@ -8,9 +8,9 @@ import {
     LOAD_NICKNAMES_REQUEST,
     LOAD_NICKNAMES_SUCCESS,
     LOAD_NICKNAMES_FAILURE,
-    RESET_REQUEST,
-    RESET_SUCCESS,
-    RESET_FAILURE,
+    // RESET_REQUEST,
+    // RESET_SUCCESS,
+    // RESET_FAILURE,
 } from '../reducers/user';
 
 function addNicknameAPI(data) {
@@ -54,21 +54,21 @@ function* loadNicknames(action) {
   }
 }
 
-function* reset(action) {
-    try {
-      yield delay(0);
-      yield put({
-        type: RESET_SUCCESS,
-        data: action.data,
-      });
-    } catch (err) {
-      console.error(err);
-      yield put({
-        type: RESET_FAILURE,
-        error: err.response.data,
-      });
-    }
-}
+// function* reset(action) {
+//     try {
+//       yield delay(0);
+//       yield put({
+//         type: RESET_SUCCESS,
+//         data: action.data,
+//       });
+//     } catch (err) {
+//       console.error(err);
+//       yield put({
+//         type: RESET_FAILURE,
+//         error: err.response.data,
+//       });
+//     }
+// }
 
 function* watchAddNickname() {
     yield takeLatest(ADD_NICKNAME_REQUEST, addNickname);
@@ -76,15 +76,15 @@ function* watchAddNickname() {
 function* watchLoadNicknames() {
     yield takeLatest(LOAD_NICKNAMES_REQUEST, loadNicknames);
 }
-function* watchReset() {
-    yield takeLatest(RESET_REQUEST, reset);
-}
+// function* watchReset() {
+//     yield takeLatest(RESET_REQUEST, reset);
+// }
 
 export default function* userSaga() {
     yield all([
       fork(watchAddNickname),
       fork(watchLoadNicknames),
-      fork(watchReset),
+      // fork(watchReset),
     ]);
 }
   

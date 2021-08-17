@@ -32,12 +32,19 @@ export const addNicknameRequestAction = (data) => ({
 });
 
 export const resetRequestAction = (data) => ({
-    type: RESET_REQUEST,
+    type: RESET_SUCCESS,
     data,
 });
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case RESET_SUCCESS:
+            return {
+                ...state,
+                addnicknameLoading: false,
+                addnicknameDone: false,
+                addnicknameError: null,
+            };
         case ADD_NICKNAME_REQUEST:
             return {
                 ...state,
@@ -70,7 +77,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loadNicknamesLoading: false,
-                mainUsers: action.data.concat(state.mainUsers),
+                mainUsers: state.mainUsers.concat(action.data),
                 loadNicknamesDone: true,
                 loadNicknamesError: null,
             };
@@ -79,25 +86,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadNicknamesLoading: false,
                 loadNicknamesError: action.error,
-            };
-        case RESET_REQUEST:
-            return {
-                ...state,
-                addnicknameLoading: true,
-                addnicknameError: null,
-            };
-        case RESET_SUCCESS:
-            return {
-                ...state,
-                addnicknameLoading: false,
-                addnicknameDone: false,
-                addnicknameError: null,
-            };
-        case RESET_FAILURE:
-            return {
-                ...state,
-                addnicknameLoading: true,
-                addnicknameError: action.error,
             };
         default:
             return state;

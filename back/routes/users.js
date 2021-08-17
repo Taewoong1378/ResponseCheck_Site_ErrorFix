@@ -9,7 +9,10 @@ router.get('/', async (req, res, next) => {    // GET /user
             attributes: ['nickname', 'score'],
             offset: 0,
             limit: 10,
-            order: [['score', 'ASC']],
+            order: [
+                ['score', 'ASC'],
+                ['createdAt', 'ASC'],
+            ],
         });
         return res.status(201).json(users);
     } catch(error) {

@@ -5,7 +5,7 @@ import { addNicknameRequestAction } from '../../reducers/user';
 import { Input, Button } from 'antd';
 import { FormWrapper } from './styles';
 
-const UnderButton = ({ onReset, score }) => {
+const UnderButton = ({ setMessage, onReset, score }) => {
     const dispatch = useDispatch();
     const { addnicknameLoading, addnicknameError } = useSelector((state) => state.user);
     const [nickname, setNickname] = useState('');
@@ -15,7 +15,13 @@ const UnderButton = ({ onReset, score }) => {
         alert('점수 제출이 완료됐습니다!');
         alert('잠시 후 게임이 다시 시작됩니다!');
         setNickname('');
+        let i = 4;
+        const id = setInterval(() => {
+            setMessage(`${i}초 후에 게임이 다시 시작됩니다!`);
+            i--
+        },1000);
         setTimeout(() => {
+            clearInterval(id);
             onReset();
         }, 5000);
     }, [nickname, score]);
@@ -64,6 +70,7 @@ const UnderButton = ({ onReset, score }) => {
 UnderButton.propTypes = {
     score: PropTypes.number.isRequired,
     onReset: PropTypes.func.isRequired,
+    setMessage: PropTypes.func.isRequired,
 };
 
 export default UnderButton;
