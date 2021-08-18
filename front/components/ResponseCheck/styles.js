@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   font-family: 'Jua', sans-serif;
   border: 1px solid black;
   width: 70%;
-  height: 400px;
+  height: 300px;
   text-align: center;
   margin: auto;
   padding: 25px;
@@ -22,9 +22,22 @@ export const Wrapper = styled.div`
   background-color: ${(props) => (props.state === 'waiting' ? 'aqua' : props.state === 'ready' ? 'red' : props.state === 'finish' ? 'gray' : 'greenyellow')};
 `;
 
-export const Ul = styled.ul`
+export const FirstUl = styled.ul`
   width: 100%;
-  margin-top: 30px;
+  margin-top: 3%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  font-weight: bold;
+  line-height: 2.0em;
+  font-size: 15px;
+  list-style: none;
+  padding: 0;
+`;
+
+export const SecondUl = styled.ul`
+  width: 100%;
+  margin-top: 18px;
   position: absolute;
   left: 50%;
   transform: translate(-50%);
@@ -38,29 +51,30 @@ export const Ul = styled.ul`
 export const Li = styled.li`
   font-family: 'Jua', sans-serif;
   text-align: center;
-  font-size: 17px;
+  font-size: 15px;
   line-height: 2.0em;
 `;
 
 export const ButtonWrapper = styled(Button)`
   font-family: 'Jua', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   margin: 4px 2px;
-  margin-top: 110px;
   margin-bottom: 10px;
 `;
 
 export const MainButton = styled(Button)`
   font-family: 'Jua', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   margin: 4px 2px;
-  margin-top: 80px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 40px;
 `;
 
 export const Div = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+export const UnderResetButton = styled(Button)`
+  font-size: 15px;
+  margin-top: 5px;
 `;

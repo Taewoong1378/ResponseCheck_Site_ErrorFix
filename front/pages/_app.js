@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import 'antd/dist/antd.css';
 import Helmet from 'react-helmet';
+import 'antd/dist/antd.css';
 
 import wrapper from '../store/configureStore';
 
 const App = ({ Component }) => (
     <>
         <Helmet>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-            <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet" />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+                <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet" />
         </Helmet>
         <Head>
             <meta charSet="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             <title>반응속도체크</title>
         </Head> 
         <Component />

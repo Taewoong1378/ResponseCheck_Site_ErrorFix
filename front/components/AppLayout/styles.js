@@ -39,12 +39,13 @@ export const A = styled.a`
     color: gold;
 `;
 
-export const Footer = styled.div`
+export const Footer = styled.footer`
     width: 100%;
     height: 50px;
     background: black;
-    position: absolute;
+    position: fixed;
     bottom: 0;
+    left: 0;
 `;
 
 export const Github = styled(FontAwesomeIcon)`
@@ -71,6 +72,7 @@ export const Ul = styled.ul`
     align-items: center;
     padding: 0;
     margin: 0;
+    z-index: -1;
 `;
 
 export const Li = styled.li`

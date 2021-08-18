@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { Wrapper, Ul, Li, Div, ButtonWrapper, MainButton } from './styles';
+import { Wrapper, Li, Div, ButtonWrapper, MainButton, UnderResetButton, FirstUl, SecondUl } from './styles';
 import UnderButton from '../UnderButton/index';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
@@ -23,7 +23,7 @@ const ResponseCheck = () => {
         setState('now');
         setMessage('지금 클릭!');
         startTime.current = new Date();
-      }, Math.floor(Math.random() * 1000) + 2000);
+      }, 0.1);  // Math.floor(Math.random() * 1000) + 2000
       setState('ready');
       setMessage('초록색이 되면 클릭하세요!');
     } else if (state === 'ready') { // 성급하게 클릭
@@ -65,12 +65,12 @@ const ResponseCheck = () => {
     return result.length === 0
       ? 
       <Link href="/record">
-        <a><MainButton type="primary">다른 사람 점수 보러가기</MainButton></a>
+        <a><div style={{ textAlign: 'center'}}><MainButton type="primary">다른 사람 점수 보러가기</MainButton></div></a>
       </Link>
       : result.length === 5
-      ? 
+      ?
       <>
-        <Ul>
+        <FirstUl style={{ position: 'relative' }}>
           <Li>
             평균 : {score}ms
           </Li>
@@ -85,7 +85,7 @@ const ResponseCheck = () => {
             : 
             '정말 빠른 반응 속도를 가지고 있네요!'}
           </Li>
-        </Ul>
+        </FirstUl>
         <Div>
           <ButtonWrapper type="primary" onClick={onReset}>다시!</ButtonWrapper>
             <Link href="/record">
@@ -96,13 +96,14 @@ const ResponseCheck = () => {
       </>
       :
        <>
-        <Ul>
+        <SecondUl>
           <Li key="first">1회차 : {result[0] ? `${result[0]}ms` : null}</Li>
           <Li key="second">2회차 : {result[1] ? `${result[1]}ms` : null}</Li>
           <Li key="third">3회차 : {result[2] ? `${result[2]}ms` : null}</Li>
           <Li key="fourth">4회차 : {result[3] ? `${result[3]}ms` : null}</Li>
           <Li key="fifth">5회차 : {result[4] ? `${result[4]}ms` : null}</Li>
-        </Ul>
+          <Li key="sixth"><UnderResetButton onClick={onReset} type="primary">다시!</UnderResetButton></Li>
+        </SecondUl>
       </>
   }, [result]);
 
@@ -110,7 +111,7 @@ const ResponseCheck = () => {
     <>
         <Wrapper
           state={state}
-          onClick={onClickScreen}
+          onMouseDown={onClickScreen}
         >
           {message}
         </Wrapper>
