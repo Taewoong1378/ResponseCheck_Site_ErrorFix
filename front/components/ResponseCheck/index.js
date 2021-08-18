@@ -23,7 +23,7 @@ const ResponseCheck = () => {
         setState('now');
         setMessage('지금 클릭!');
         startTime.current = new Date();
-      }, 0.1);  // Math.floor(Math.random() * 1000) + 2000
+      }, Math.floor(Math.random() * 1000) + 2000);
       setState('ready');
       setMessage('초록색이 되면 클릭하세요!');
     } else if (state === 'ready') { // 성급하게 클릭
