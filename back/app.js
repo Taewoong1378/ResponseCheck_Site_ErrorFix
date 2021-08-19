@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(hpp());
   app.use(helmet({ contentSecurityPolicy: false }));
   app.use(cors({
-    origin: ['http://localhost:3065', 'http://3.36.55.148'],
+    origin: ['http://localhost:3060', 'http://3.35.201.212'],
     credentials: true,
   }));
 } else {
